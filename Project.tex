@@ -28,44 +28,22 @@
 
 % NS - Should you need to render for a different paper size (e.g., letter), you can change it here.
 % You should also add the "final" option to render your project ready for submission.
-\documentclass[a4paper, final]{oxcsproject}
-
-% %%%% BIBLIOGRAPHY SETUP
-
-% The science-type option: numerical in-text citation with references in order of appearance.
-\usepackage[style=ieee, sorting=none, backend=biber, doi=false, isbn=false]{biblatex}
-\newcommand*{\bibtitle}{References}
-
-% This makes the bibliography left-aligned (not 'justified') and slightly smaller font.
-\renewcommand*{\bibfont}{\raggedright\small}
-
-% Change this to the name of your .bib file (usually exported from a citation manager like Zotero
-% or EndNote).
-\addbibresource{references.bib}
-
-
-% Uncomment this if you want equation numbers per subsection (2.3.12), instead of per section
-% (2.18): \numberwithin{equation}{subsection}
+\documentclass[a4paper, draft]{oxcsproject}
 
 % %%%% TITLE PAGE INFORMATION Project title
-\title{Project on a topic in Computer Science}
+\title{Course name}
 
 % The same candidate number as for your exams. You can find it in the student self service.
 \candidateno{0000000}
 
-\wordcount{0000}
-
-% NS - What section you're submitting for. Part B for 3rd year, Part C for master's year.
-\degree{Part B - MCompSci Computer Science}
 % Term and year of submission
-\degreedate{Trinity 2024}
+\degreedate{Michaelmas 2024}
 
 % %%%% USEFUL PACKAGES These are some useful packages that are not critical to using this template,
 % but some that you may find helpful to look into. Many are demonstrated in this document, but you
 % should look into their other features as you go.
 
 % % Load the glossary terms that you've defined in glossary.tex
-\input{glossary}
 
 % NS - Allows you to use .svg vector images for your figures, as you should aim to do
 \usepackage{svg}
@@ -85,70 +63,19 @@
 % %%%% THE ACTUAL DOCUMENT STARTS HERE
 \begin{document}
 
-% JEM: Pages are roman numbered from here, though page numbers are invisible until ToC. This is in
-% keeping with most typesetting conventions.
-\begin{romanpages}
+% Title page is created here
+% NS - Remember that your title page doesn't count towards your word count
+\maketitle
 
-	% JEM: By default, this template uses the traditional Oxford "Belt Crest". Un-comment the
-	% following line to use the newer, "Blue Square" logo:
-	% \renewcommand{\crest}{{\includegraphics[width=4.2cm, height=4.2cm]{figures/newlogo.pdf}}}
+% NS - Prints out an easy to navigate list of the todos you've left in your document
+\listoftodos
 
-	% Title page is created here
-
-	% NS - Remember that your title page doesn't count towards your word count
-	\maketitle
-
-	% %%%% ACKNOWLEDGEMENTS -- Nothing to do here except comment out if you don't want it.
-
-	% NS - Similarly, your acknowledgements don't count for your word count
-	\begin{acknowledgements}
-		\input{text/acknowledgements}
-	\end{acknowledgements}
-
-	% %%%% ABSTRACT -- Nothing to do here except comment out if you don't want it.
-	\begin{abstract}
-		\input{text/abstract}
-	\end{abstract}
-
-	% This aligns the bottom of the text of each page. It generally makes things look better.
-	\flushbottom
-
-	% NS - Prints out an easy to navigate list of the todos you've left in your document
-	\listoftodos
-
-	% This is where the whole-document ToC appears: NS - Again, your table of contents isn't
-	% included in your word count
-	\tableofcontents
-
-	% %%%% LIST OF ABBREVIATIONS
-
-	% NS - Prints out a list of the acronyms that you've defined in glossary.tex. Just comment it
-	% out if you don't want to list the acronyms. You can still use the inline declarations.
-	\printglossary[type=\acronymtype]
-
-	% The Roman pages, like the Roman Empire, must come to its inevitable close.
-\end{romanpages}
-
-% %%%% SECTIONS Add or remove any sections you'd like here, by file name (excluding '.tex'):
-\flushbottom
-
-\include{text/sec1-introduction}
-\include{text/sec2-install}
-\include{text/sec3-background}
-\include{text/sec4-usage}
-\include{text/sec5-other-tools}
-\include{text/sec6-future-work}
+\input{text/question-1}
 
 % % APPENDICES %% Starts lettered appendices, adds a heading in table of contents, and adds a page
 % that just says "Appendices" to signal the end of your main text.
 \startappendices
 % Add or remove any appendices you'd like here:
-\include{text/appendix-1}
-% %%%% REFERENCES
-
-\setlength{\baselineskip}{0pt} % JEM: Single-space References
-
-{\renewcommand*\MakeUppercase[1]{#1}
-	\printbibliography[heading=bibintoc,title={\bibtitle}]}
+\input{text/appendix-1}
 
 \end{document}
