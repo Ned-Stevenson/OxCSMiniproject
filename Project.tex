@@ -60,6 +60,9 @@
 
 % \newcommand{\mycommand}{Hello World!}
 
+% Uses roman rather than arabic numerals for the sub-sub-questions. Uncomment if that's needed.
+% \renewcommand{\thesubsubsection}{(\roman{subsubsection})}
+
 % %%%% THE ACTUAL DOCUMENT STARTS HERE
 \begin{document}
 
@@ -71,11 +74,6 @@
 \listoftodos
 
 \input{text/question-1}
-
-% % APPENDICES %% Starts lettered appendices, adds a heading in table of contents, and adds a page
-% that just says "Appendices" to signal the end of your main text.
-\startappendices
-% Add or remove any appendices you'd like here:
-\input{text/appendix-1}
+\input{text/question-2}
 
 \end{document}

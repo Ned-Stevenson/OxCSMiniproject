@@ -176,6 +176,14 @@
   \end{center}
 }
 
+\renewcommand{\thesection}{Question \arabic{section}}
+\renewcommand{\thesubsection}{(\alph{subsection})}
+\renewcommand{\thesubsubsection}{(\arabic{subsubsection})}
+
+\newcommand{\question}{\section{}}
+\newcommand{\subquestion}{\subsection{}}
+\newcommand{\subsubquestion}{\subsubsection{}}
+
 % Figure placement on page This is to help prevent too many figures on their own pages. I got it
 % from: http://dcwww.camd.dtu.dk/~schiotz/comp/LatexTips/LatexTips.html#captfont
 
@@ -197,11 +205,3 @@
 \usepackage{csquotes}
 \hyphenpenalty=500
 \def\longs{{\fontencoding{TS1}\selectfont s}}
-
-% JEM: combine all of the commands you run before appendices start
-
-\newcommand{\startappendices}{
-  \newpage
-  \appendix
-  \appendixpage
-}
