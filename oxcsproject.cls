@@ -58,6 +58,8 @@
 
 \usepackage[hmargin={3.1cm, 3.1cm}, vmargin={3.1cm,3.1cm}]{geometry}
 
+\usepackage{silence}
+
 % NS - If we're using the todonotes, then give them some extra margin space
 \iffinal
 \else
@@ -118,6 +120,10 @@
 \usepackage[colorlinks=false,pdfpagelabels,\iffinal{hidelinks}\fi, draft=false]{hyperref}
 % for linking between references, figures, TOC, etc in the pdf document
 
+\iffinal
+	% Turn off the warning about small margins if we're not using the TODO package
+	\WarningFilter{todonotes}{The length marginparwidth is less than 2cm}
+\fi
 % Lets us put in convenient todo labels. Don't show on the final result
 \usepackage[colorinlistoftodos, \iffinal{disable}\fi]{todonotes}
 
