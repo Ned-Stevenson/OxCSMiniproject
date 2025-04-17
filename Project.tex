@@ -11,23 +11,8 @@
 % as specified in the MIT License included in this distribution's LICENSE file.
 
 
-
-% TODO - The noIndentBlock terminates on a .cls but not on a .tex
-
-% I've (John) tried to comment this file extensively, so read through it to see how to use the
-% various options. Remember that in LaTeX, any line starting with a % is NOT executed. Several
-% places below, you have a choice of which line to use out of multiple options (eg draft vs final,
-% for PDF vs for binding, etc.) When you pick one, add a % to the beginning of the lines you don't
-% want.
-
-% I (Ned) found John's comments extremely helpful. You likely will too, and I've tried to similarly
-% explain my additions to this template. However converting to the version you have before you was
-% quite a change, so some of John's comments may not make sense to you. In that case, you're
-% welcome to raise an issue on the GitHub or, better yet, come up with a better explanation and
-% make a pull request to help all those that come after you, as I aim to do here.
-
-% NS - Should you need to render for a different paper size (e.g., letter), you can change it here.
-% You should also add the "final" option to render your project ready for submission.
+% You should replace the "draft" option with the "final" option to render your project ready for 
+% submission.
 \documentclass[a4paper, draft]{oxcsproject}
 
 % %%%% TITLE PAGE INFORMATION Project title
@@ -39,35 +24,32 @@
 % Term and year of submission
 \degreedate{Michaelmas 2024}
 
-% %%%% USEFUL PACKAGES These are some useful packages that are not critical to using this template,
-% but some that you may find helpful to look into. Many are demonstrated in this document, but you
-% should look into their other features as you go.
 
-% % Load the glossary terms that you've defined in glossary.tex
-
-% NS - Allows you to use .svg vector images for your figures, as you should aim to do
-\usepackage{svg}
-
-% Useful for consistently formatting numbers with units (e.g., 512 kB, 20 ms, 330 mV, etc.)
-\usepackage{siunitx}
-
-% %%%% YOUR PACKAGES This is a good place for you to load and configure any extra packages you're
+%%%%% YOUR PACKAGES This is a good place for you to load and configure any extra packages you're
 % using.
 
 % \usepackage{myreallycoolpackage}
 
-% %%%% YOUR OWN PERSONAL MACROS This is a good place to dump your own LaTeX macros as they come up.
+%%%%% YOUR OWN PERSONAL MACROS This is a good place to dump your own LaTeX macros as they come up.
 
 % \newcommand{\mycommand}{Hello World!}
 
-% Uses roman rather than arabic numerals for the sub-sub-questions. Uncomment if that's needed.
+
+% Uses roman (i, ii, etc.) rather than arabic (1, 2, etc.) numerals for the sub-sub-questions
 % \renewcommand{\thesubsubsection}{(\roman{subsubsection})}
 
-% %%%% THE ACTUAL DOCUMENT STARTS HERE
+% Uses QED rather than a small square for the end of proofs. Uncomment if that's preferred.
+% \renewcommand\qedsymbol{QED}
+
+% The path where we put the figures that we want to include. Change it as needed
+\graphicspath{./figures/}
+
+
+%%%%% THE ACTUAL DOCUMENT STARTS HERE
 \begin{document}
 
-% Title page is created here
-% NS - Remember that your title page doesn't count towards your word count
+% Title page is created here NS - Remember that your title page doesn't count towards your word
+% count
 \maketitle
 
 % NS - Prints out an easy to navigate list of the todos you've left in your document

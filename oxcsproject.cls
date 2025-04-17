@@ -13,7 +13,7 @@
 
 % -------------------------- identification ---------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{oxcsproject}[2024/09/25 Oxford Computer Science project]
+\ProvidesClass{oxcsproject}[2024/09/25 Oxford Computer Science Part C miniproject]
 % -------------------------- initial code -----------------------
 
 \LoadClass[a4paper, 12pt]{article}
@@ -42,8 +42,8 @@
 \setlength{\frontmatterbaselineskip}{17pt plus1pt minus1pt}
 \setlength{\textbaselineskip}{22pt plus2pt}
 
-% DECLARATIONS These macros are used to declare arguments needed for the construction of the
-% title page and other preamble.
+% DECLARATIONS These macros are used to declare arguments needed for the construction of the title
+% page and other preamble.
 
 % The year and term the project is submitted in
 \def\degreedate#1{\gdef\@degreedate{#1}}
@@ -54,10 +54,6 @@
 % Your word count
 \def\wordcount#1{\gdef\@wordcount{#1}}
 
-% CRESTS 
-
-\def\crest{{\includegraphics{figures/beltcrest.pdf}}}
-
 % Define text area of page and margin offsets 
 
 \usepackage[hmargin={3.1cm, 3.1cm}, vmargin={3.1cm,3.1cm}]{geometry}
@@ -65,15 +61,48 @@
 % NS - If we're using the todonotes, then give them some extra margin space
 \iffinal
 \else
-  \setlength{\marginparwidth}{2.7cm}
+	\setlength{\marginparwidth}{2.7cm}
 \fi
 
-\usepackage{microtype}
-\usepackage{nicefrac}
-\usepackage{xfrac}
+% aliascnt let's us create new counters that alias existing ones.
+\usepackage{aliascnt}
+% NS - Create question number counters to track the value of the sections
+\newaliascnt{question}{section}
+\newaliascnt{subquestion}{subsection}
+\newaliascnt{subsubquestion}{subsubsection}
+
+% Have the question numbers be displayed as typical for the question papers
+\renewcommand{\thequestion}{\arabic{question}}
+\renewcommand{\thesubquestion}{\alph{subsection}}
+\renewcommand{\thesubsubquestion}{\arabic{subsubsection}}
+
+% Having different counters lets them have different representations. This means that the sections
+% can have the "Question 1" formatting, while things like equations can be counted per question for
+% formatting like "Equation 1.1" rather than "Equation Question 1.1"
+\renewcommand{\thesection}{Question \thequestion}
+\renewcommand{\thesubsection}{(\thesubquestion)}
+\renewcommand{\thesubsubsection}{(\thesubsubquestion)}
+
+\newcommand{\question}{\section{}}
+\newcommand{\subquestion}{\subsection{}}
+\newcommand{\subsubquestion}{\subsubsection{}}
+
+% NS - Some helpful maths packages I found myself using, plus some simple setup
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{textcomp}
+\usepackage{amsthm}
+
+\newtheorem*{_claim}{Claim}
+\newtheorem{case}{Case}
+\newtheorem{corollary}{Corollary}[question]
+
+% Configure the case enumeration to reset on each new claim
+\newenvironment{claim}{
+	\begin{_claim}
+		\setcounter{case}{0}
+		}{
+	\end{_claim}
+}
 
 \usepackage{setspace}
 \doublespacing
@@ -81,48 +110,12 @@
 
 \usepackage{graphicx}
 % A critical package for including figures in our writeup
-\graphicspath{{./figures/}}
-
-\usepackage{longtable}
-% Allows tables to span multiple pages (this package must be called before hyperref)
-
-\usepackage[font=small,labelfont=bf]{caption}
-% Nicer captions
-
-\usepackage{multicol,multirow,array}
-% Used to make multiple columns for the indices and for creating columns that span multiple
-% rows in tables
-
-\usepackage{rotating}
-% To allow tables in landscape mode
-
-\usepackage{booktabs}
-% For better looking tables
-
-\usepackage{pdfpages}
-% Allows multi-page pdfs to be inserted as graphics
-
-% \usepackage{enumerate} Allows different numbering styles for Lists to use:
-% \begin{enumerate}[x] \item text \end{enumerate} where x is: A uppercase letters (as produced
-% by \Alph) a lowercase letters (as produced by \alph) I uppercase roman numerals (as produced
-% by \Roman) i lowercase roman numerals (as produced by \roman) 1 arabic numbers (as produced
-% by \arabic)
-
-% JEM the following package allows changing spacing in lists (for acknowledgements)
-\usepackage{enumitem}
-
-% JEM the following allows table columns aligned by decimal point
-\usepackage{dcolumn}
-\newcolumntype{d}[3]{D{.}{\cdot}{#1} }
 
 \usepackage{appendix}
 % For helping format appendicies
-\usepackage{notoccite}
-% To format the bibliography 
 
-% NS - Links are disabled for draft builds. Don't put the boxes around them in the final
-% version
-\usepackage[colorlinks=false,pdfpagelabels,\iffinal{hidelinks}\fi]{hyperref}
+% NS - Don't put the boxes around them in the final version
+\usepackage[colorlinks=false,pdfpagelabels,\iffinal{hidelinks}\fi, draft=false]{hyperref}
 % for linking between references, figures, TOC, etc in the pdf document
 
 % Lets us put in convenient todo labels. Don't show on the final result
@@ -140,49 +133,39 @@
 
 % NS - Number style is the style of the line numbers, not numbers within the code. 
 \lstdefinestyle{codeStyle}{
-  commentstyle=\color{codegreen},
-  keywordstyle=\color{magenta},
-  numberstyle=\tiny\color{codegray},
-  stringstyle=\color{codepurple},
-  basicstyle=\ttfamily\footnotesize,
-  breakatwhitespace=false,
-  breaklines=true,
-  captionpos=b,
-  keepspaces=true,
-  numbers=left,
-  numbersep=5pt,
-  showspaces=false,
-  showstringspaces=false,
-  showtabs=false,
-  tabsize=2,
-  frame=leftline,
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	frame=leftline,
 }
 
 \lstset{style=codeStyle}
 
-
 \renewcommand{\maketitle}{
-  \begin{center}
+	\begin{center}
+		\LARGE {\bfseries {\@title} \par}
 
-    \LARGE {\bfseries {\@title} \par}
+		\Large \@degreedate
 
-    \Large \@degreedate
+		\Large Candidate Number: \@candidateno
 
-    \Large Candidate Number: \@candidateno
-
-    \ifdraft
-      \Large{\bf DRAFT}
-    \fi
-  \end{center}
+		\ifdraft
+			\Large{\bf DRAFT}
+		\fi
+	\end{center}
 }
-
-\renewcommand{\thesection}{Question \arabic{section}}
-\renewcommand{\thesubsection}{(\alph{subsection})}
-\renewcommand{\thesubsubsection}{(\arabic{subsubsection})}
-
-\newcommand{\question}{\section{}}
-\newcommand{\subquestion}{\subsection{}}
-\newcommand{\subsubquestion}{\subsubsection{}}
 
 % Figure placement on page This is to help prevent too many figures on their own pages. I got it
 % from: http://dcwww.camd.dtu.dk/~schiotz/comp/LatexTips/LatexTips.html#captfont
@@ -191,17 +174,8 @@
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.75}
 
-\usepackage[nottoc]{tocbibind}
-% Used for inserting the Bibliography, List of Figures, indices, etc into the table of contents.
-
 % JEM: Allow flexible spacing after figures, to reduce other stretching
 \setlength{\textfloatsep}{20pt plus15pt minus4pt}
 
-% JEM: for crazy multi character set quotes and Unicode and all
-\usepackage{lmodern}
-\usepackage[LGR,TS1,T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{csquotes}
 \hyphenpenalty=500
 \def\longs{{\fontencoding{TS1}\selectfont s}}
